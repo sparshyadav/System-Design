@@ -1,10 +1,14 @@
-const express=require("express");
-const app=express();
+const express = require("express");
+const app = express();
+const { Worker } = require("worker_threads");
+// const os=require("os");
 
-app.get("/blocking", (req, res)=>{
-    let worker=new Worker('worker.js');
+// console.log(os.cpus().length);
 
-    worker.on('messgage', (req, res)=>{
+app.get("/blocking", (req, res) => {
+    let worker = new Worker('./worker.js');
+
+    worker.on('message', (data) => {
         res.send(`data ${data}`);
     });
 });
@@ -18,8 +22,8 @@ app.get("/blocking", (req, res)=>{
 //     res.send(`Response ${count}`);
 // });
 
-app.get("/non-blocking", (req, res)=>{
+app.get("/non-blocking", (req, res) => {
     res.send("Non Blocking Response");
 })
 
-app.listen(3000, ()=>console.log("Server Started"));
+app.listen(3000, () => console.log("Server Started"));
