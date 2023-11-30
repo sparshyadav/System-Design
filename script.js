@@ -11,6 +11,7 @@ if (cluster.isPrimary) {
     }
 }
 else {
+    app.get('');
     console.log(process.pid);
     app.listen(7878, () => console.log("Server Started"));
 }
