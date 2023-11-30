@@ -10,3 +10,7 @@ if (cluster.isPrimary) {
         cluster.fork();
     }
 }
+else {
+    console.log(process.pid);
+    app.listen(7878, () => console.log("Server Started"));
+}
